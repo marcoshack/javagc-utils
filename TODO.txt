@@ -1,5 +1,0 @@
-
-log_dater.rb
-
- - Ler arquivo de log linha a linha
-
