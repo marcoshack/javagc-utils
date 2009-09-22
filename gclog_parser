@@ -1,0 +1,15 @@
+#!/usr/bin/ruby
+
+require "lib/gclog_parser.rb"
+
+gclog_filename = ARGV[0]
+
+if gclog_filename.nil? || !File.exist?(gclog_filename) then
+  puts "Usage: gclog_parser GC_LOG_ABSOLUTE_FILENAME"
+  exit 1
+end
+
+puts "#\n# JVM GC log file parsed from '#{gclog_filename}' on #{Time.now}\n#"
+
+parser = GCLogParser.new(gclog_filename)
+parser.print_formated_lines
