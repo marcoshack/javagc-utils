@@ -1,0 +1,7 @@
+
+log_dater.rb
+
+ - Ler arquivo de log linha a linha
+ ** Parse do horário inicial do log a partir do nome do arquivo 
+ - parse_line() retornar um objeto Date (ou timestamp?)
+ - Calcular timestamp absoluto da linha de log
