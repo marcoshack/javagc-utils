@@ -4,7 +4,8 @@ require "test/unit"
 class TestLogDater < Test::Unit::TestCase
   def setup
     @dater = LogDater.new
-    @dater.start_time(Time.gm(2009, 9, 05, 02, 55, 0));
+    @log_start_time = Time.gm(2009, 9, 05, 02, 55, 0)
+    @dater.start_time = @log_start_time;
   end
   
   def test_parse_filename_date
@@ -13,17 +14,23 @@ class TestLogDater < Test::Unit::TestCase
   end
 
   def test_parse_line
-    timestamp1, message1 = @dater.parse_line("10.482: [GC [PSYoungGen: 131072K->4966K(152896K)] 134940K->8835K(1551040K), 0.0172760 secs]")
-    assert_equal("10.482", timestamp1)
-    assert_equal("[GC [PSYoungGen: 131072K->4966K(152896K)] 134940K->8835K(1551040K), 0.0172760 secs]", message1)
-    
-    timestamp2, message2 = @dater.parse_line("19.053: [Full GC [PSYoungGen: 21823K->0K(152896K)] [ParOldGen: 4482K->25988K(1398144K)] 26306K->25988K(1551040K) [PSPermGen: 26709K->26676K(45696K)], 0.5509240 secs]")
-    assert_equal("19.053", timestamp2)
-    assert_equal("[Full GC [PSYoungGen: 21823K->0K(152896K)] [ParOldGen: 4482K->25988K(1398144K)] 26306K->25988K(1551040K) [PSPermGen: 26709K->26676K(45696K)], 0.5509240 secs]", message2)
+    time, message = @dater.parse_line("10.482: [GC [PSYoungGen: 131072K->4966K(152896K)] 134940K->8835K(1551040K), 0.0172760 secs]")
+    assert_equal(@log_start_time + 10.482, time)
+    assert_equal("[GC [PSYoungGen: 131072K->4966K(152896K)] 134940K->8835K(1551040K), 0.0172760 secs]", message)
   end
-
-  def test_format_increment_time
-    formated_time = @dater.format_increment_time(19.053)
-    assert_equal("2009-09-05 02:55:19.053", formated_time)
+  
+  def test_format_line
+    formated_line = @dater.format_line("10.482: [GC [PSYoungGen: 131072K->4966K(152896K)] 134940K->8835K(1551040K), 0.0172760 secs]")
+    assert_equal("2009-09-05 02:55:10.482: [GC [PSYoungGen: 131072K->4966K(152896K)] 134940K->8835K(1551040K), 0.0172760 secs]", formated_line)
   end
+  
+  def test_format_millisecond
+    assert_equal("099", @dater.format_millisecond(99))
+    assert_equal("100", @dater.format_millisecond(100))
+    assert_equal("101", @dater.format_millisecond(101))
+  end
+  
+  # def test_read_file_line_by_line
+  #   
+  # end
 end
