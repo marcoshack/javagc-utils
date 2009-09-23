@@ -8,7 +8,7 @@ class GCLogParser
   end
   
   def parse_filename_date(filename)
-    regex = /.*\/loggc_(\d{4})-(\d{2})-(\d{2})-(\d{2})-(\d{2})\.log$/
+    regex = /[.*\/]?loggc_(\d{4})-(\d{2})-(\d{2})-(\d{2})-(\d{2})\.log$/
     match = regex.match(filename)
     Time.gm(match[1], match[2], match[3], match[4], match[5], 0)
   end

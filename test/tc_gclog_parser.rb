@@ -1,4 +1,4 @@
-require "../lib/gclog_parser.rb"
+require "gclog_parser"
 require "test/unit"
 
 class TestGCLogParser < Test::Unit::TestCase
@@ -14,8 +14,12 @@ class TestGCLogParser < Test::Unit::TestCase
   end
   
   def test_parse_filename_date
-    parsed_date = @dater.parse_filename_date("/home/user/tmp/loggc_2009-09-05-02-55.log")
-    assert_equal(Time.gm(2009, 9, 05, 02, 55, 0), parsed_date)
+    assert_equal(Time.gm(2009, 9, 05, 02, 55, 0),
+      @dater.parse_filename_date("/home/user/tmp/loggc_2009-09-05-02-55.log"))
+    assert_equal(Time.gm(2009, 9, 05, 02, 55, 0),
+      @dater.parse_filename_date("loggc_2009-09-05-02-55.log"))
+    assert_equal(Time.gm(2009, 9, 05, 02, 55, 0),
+      @dater.parse_filename_date("./loggc_2009-09-05-02-55.log"))
   end
 
   def test_parse_line
