@@ -23,7 +23,13 @@ class GCLogParser
   end
   
   def format_millisecond(msec)
-    msec < 100 ? "0#{msec}" : msec.to_s
+    if msec < 10
+      "00#{msec}"
+    elsif msec < 100
+      "0#{msec}"
+    else
+      msec.to_s
+    end
   end
   
   def format_line(raw_line)
