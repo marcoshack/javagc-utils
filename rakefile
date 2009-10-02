@@ -1,8 +1,13 @@
-ENV['RUBYLIB'] = './lib:./test'
+require 'rake/testtask'
 
 task :default => [:test]
 
 task :test do
-  ruby "test/ts_gclog_parser.rb"
+  Rake::TestTask.new do |t|
+    t.libs << "test"
+    t.options = "-v"
+    t.test_files = FileList['test/tc*.rb']
+    t.verbose = true
+  end
 end
 
