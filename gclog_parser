@@ -1,6 +1,6 @@
 #!/usr/bin/ruby
 
-require "lib/gclog_parser.rb"
+require "#{File.dirname(__FILE__)}/lib/gclog_parser.rb"
 
 gclog_filename = ARGV[0]
 
@@ -13,3 +13,4 @@ puts "#\n# JVM GC log file parsed from '#{gclog_filename}' on #{Time.now}\n#"
 
 parser = GCLogParser.new(gclog_filename)
 parser.print_formated_lines
+
