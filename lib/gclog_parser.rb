@@ -18,11 +18,11 @@ class GCLogParser
     [@start_time + delta_ms.to_f, message]
   end
 
-  def format_time(time)
+  def GCLogParser.format_time(time)
     time.strftime("%Y-%m-%d %H:%M:%S.") + format_millisecond(time.usec.div(1000))
   end
   
-  def format_millisecond(msec)
+  def GCLogParser.format_millisecond(msec)
     if msec < 10
       "00#{msec}"
     elsif msec < 100
@@ -34,7 +34,7 @@ class GCLogParser
   
   def format_line(raw_line)
     line_time, line_message = parse_line(raw_line)
-    format_time(line_time) + ": " + line_message
+    GCLogParser.format_time(line_time) + ": " + line_message
   end
   
   def print_formated_lines

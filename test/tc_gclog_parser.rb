@@ -34,10 +34,10 @@ class TestGCLogParser < Test::Unit::TestCase
   end
   
   def test_format_millisecond
-    assert_equal("001", @parser.format_millisecond(1))
-    assert_equal("010", @parser.format_millisecond(10))
-    assert_equal("099", @parser.format_millisecond(99))
-    assert_equal("100", @parser.format_millisecond(100))
-    assert_equal("101", @parser.format_millisecond(101))
+    assert_equal("001", GCLogParser.format_millisecond(1))
+    assert_equal("010", GCLogParser.format_millisecond(10))
+    assert_equal("099", GCLogParser.format_millisecond(99))
+    assert_equal("100", GCLogParser.format_millisecond(100))
+    assert_equal("101", GCLogParser.format_millisecond(101))
   end
 end

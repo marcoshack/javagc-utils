@@ -1,0 +1,8 @@
+ENV['RUBYLIB'] = './lib:./test'
+
+task :default => [:test]
+
+task :test do
+  ruby "test/ts_gclog_parser.rb"
+end
+
